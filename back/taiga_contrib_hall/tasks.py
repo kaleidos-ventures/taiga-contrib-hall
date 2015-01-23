@@ -33,6 +33,7 @@ def _get_type(obj):
 
 
 def _send_request(url, data):
+    data["title"] = getattr(settings, "HALLHOOKS_USERNAME", "Taiga")
     data["picture"] = getattr(settings, "HALLHOOKS_ICON", "https://tree.taiga.io/images/favicon.png")
 
     requests.post(url, data=data)
@@ -61,8 +62,7 @@ def change_hallhook(url, obj, change):
 
     change_text = template_change.render(context)
     data = {
-        "title": change_text.strip(),
-        "message": "",
+        "message": change_text.strip(),
     }
 
     # Get description and content
@@ -104,7 +104,7 @@ def create_hallhook(url, obj):
     context = Context({ "obj": obj, "obj_type": obj_type })
 
     data = {
-        "message": template.render(context),
+        "message": template.render(context).strip(),
     }
 
     _send_request(url, data)
@@ -118,7 +118,7 @@ def delete_hallhook(url, obj):
     context = Context({ "obj": obj, "obj_type": obj_type })
 
     data = {
-        "message": template.render(context),
+        "message": template.render(context).strip(),
     }
 
     _send_request(url, data)
@@ -127,7 +127,7 @@ def delete_hallhook(url, obj):
 @app.task
 def test_hallhook(url):
     data = {
-        "text": "Test hall message",
+        "message": "Test hall message",
     }
 
     _send_request(url, data)

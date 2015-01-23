@@ -1,17 +1,17 @@
 {% if obj_type == "issue" %}
     {% set final_url = resolve_front_url("issue", obj.project.slug, obj.ref) %}
-    {{ _("Changed Issue: ") }} <b><a href="{{final_url}}">#{{obj.ref}}: {{obj.subject}}</a></b>
+    <b>{{ _("Changed Issue: ") }}</b> <a href="{{final_url}}">#{{obj.ref}}: {{obj.subject}}</a>
 {% elif obj_type == "task" %}
     {% set final_url = resolve_front_url("task", obj.project.slug, obj.ref) %}
-    {{ _("Changed Task: ") }} <b><a href="{{final_url}}">#{{obj.ref}}: {{obj.subject}}</a></b>
+    <b>{{ _("Changed Task: ") }}</b> <a href="{{final_url}}">#{{obj.ref}}: {{obj.subject}}</a>
 {% elif obj_type == "userstory" %}
     {% set final_url = resolve_front_url("userstory", obj.project.slug, obj.ref) %}
-    {{ _("Changed User Story: ") }} <b><a href="{{final_url}}">#{{obj.ref}}: {{obj.subject}}</a></b>
+    <b>{{ _("Changed User Story: ") }}</b> <a href="{{final_url}}">#{{obj.ref}}: {{obj.subject}}</a>
 {% elif obj_type == "wikipage" %}
     {% set final_url = resolve_front_url("wiki", obj.project.slug, obj.slug) %}
-    {{ _("Changed Wiki Page: ") }} <b><a href="{{final_url}}">{{obj.slug}}</a></b>
+    <b>{{ _("Changed Wiki Page: ") }}</b> <a href="{{final_url}}">{{obj.slug}}</a>
 {% elif obj_type == "milestone" %}
     {% set final_url = resolve_front_url("taskboard", obj.project.slug, obj.slug) %}
-    {{ _("Changed Sprint: ") }} <b><a href="{{final_url}}">{{obj.name}}</a></b>
+    <b>{{ _("Changed Sprint: ") }}</b> <a href="{{final_url}}">{{obj.name}}</a>
 {% endif %}
 {% if change.comment %}<b>Comment:</b> {{ change.comment}}{% endif %}

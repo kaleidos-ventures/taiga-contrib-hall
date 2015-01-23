@@ -1,11 +1,11 @@
 {% if obj_type == "issue" %}
-    {{ _("Deleted Issue: ") }} <b>#{{obj.ref}}: {{obj.subject}}</b>
+    <b>{{ _("Deleted Issue: ") }}</b> #{{obj.ref}}: {{obj.subject}}
 {% elif obj_type == "task" %}
-    {{ _("Deleted Task: ") }} <b>#{{obj.ref}}: {{obj.subject}}</b>
+    <b>{{ _("Deleted Task: ") }}</b> #{{obj.ref}}: {{obj.subject}}
 {% elif obj_type == "userstory" %}
-    {{ _("Deleted User Story: ") }} <b>#{{obj.ref}}: {{obj.subject}}</b>
+    <b>{{ _("Deleted User Story: ") }}</b> #{{obj.ref}}: {{obj.subject}}
 {% elif obj_type == "wikipage" %}
-    {{ _("Deleted Wiki Page: ") }} <b>{{obj.slug}}</b>
+    <b>{{ _("Deleted Wiki Page: ") }}</b> {{obj.slug}}
 {% elif obj_type == "milestone" %}
-    {{ _("Deleted Sprint: ") }} <b>{{obj.name}}</b>
+    <b>{{ _("Deleted Sprint: ") }}</b> {{obj.name}}
 {% endif %}
