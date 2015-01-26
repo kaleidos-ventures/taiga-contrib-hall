@@ -1,0 +1,173 @@
+Taiga Contrib Hall REST API
+============================
+:toc: left
+:numbered:
+:source-highlighter: pygments
+:pygments-style: friendly
+
+Endpoints summary
+-----------------
+
+[cols="3*", options="header"]
+|===
+| URL
+| Method
+| Functionality
+
+| /api/v1/hall
+| GET
+| link:#hall-list[List hall endpoints]
+
+| /api/v1/hall
+| POST
+| link:#hall-create[Create hall endpoint]
+
+| /api/v1/hall/<hallId>
+| GET
+| link:#hall-get[Get hall endpoint]
+
+| /api/v1/hall/<hallId>
+| PUT
+| link:#hall-edit[Modify hall endpoint]
+
+| /api/v1/hall/<hallId>
+| PATCH
+| link:#hall-edit[Modify partially an hall endpoint]
+
+| /api/v1/hall/<hallId>
+| DELETE
+| link:#hall-delete[Delete an hall endpoint]
+
+| /api/v1/hall/<hallId>/test
+| POST
+| link:#hall-test[Test hall endpoint]
+
+|===
+
+Endpoints
+---------
+
+[[hall-list]]
+=== List
+
+To list hall endpoint send a GET request with the following parameters:
+
+[source,bash]
+----
+curl -X GET \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  https://api.taiga.io/api/v1/hall
+----
+
+The HTTP response is a 200 OK and the response body is a JSON list of link:#object-hall-endpoint-detail[hall endpoint detail objects]
+
+The results can be filtered using the following parameters:
+
+- *project*: project id
+
+[source,bash]
+----
+curl -X GET \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  https://api.taiga.io/api/v1/hall?project=1
+----
+
+[[hall-create]]
+=== Create
+
+To create hall endpoint send a POST request with the following data:
+
+- *project* (required): project id
+- *url* (required): payload url
+
+[source,bash]
+----
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  -d '{
+          "project": 1,
+          "url": "http://hall.com/hall"
+      }' \
+  https://api.taiga.io/api/v1/hall
+----
+
+When the creation is successful, the HTTP response is a 201 Created and the response body is a JSON link:#object-hall-endpoint-detail[hall endpoint detail object]
+
+[[hall-get]]
+=== Get
+
+To get a hall endpoint send a GET request specifying the hall endpoint id in the url
+
+[source,bash]
+----
+curl -X GET \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  https://api.taiga.io/api/v1/hall/1
+----
+
+The HTTP response is a 200 OK and the response body is a JSON link:#object-hall-endpoint-detail[hall endpoint detail object]
+
+[[hall-edit]]
+=== Edit
+
+To edit a hall endpoint send a PUT or a PATCH specifying the hall endpoint id in the url.
+In a PATCH request you just need to send the modified data, in a PUT one the whole object must be sent.
+
+[source,bash]
+----
+curl -X PATCH \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  -d '{
+          "name": "My service name"
+      }' \
+  https://api.taiga.io/api/v1/hall/1
+----
+
+When the creation is successful, the HTTP response is a 200 OK and the response body is a JSON link:#object-hall-endpoint-detail[hall endpoint detail object]
+
+[[hall-delete]]
+=== Delete
+
+To delete a hall endpoint send a DELETE specifying the hall endpoint id in the url
+
+[source,bash]
+----
+curl -X DELETE \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  https://api.taiga.io/api/v1/hall/1
+----
+
+When delete succeeded, the HTTP response is a 204 NO CONTENT with an empty body response
+
+[[hall-test]]
+=== Test
+
+To test a hall endpoint send a POST request specifying the hall endpoint id in the url
+
+[source,bash]
+----
+curl -X GET \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  https://api.taiga.io/api/v1/hall/1/test
+----
+
+The HTTP response is a 204 NO CONTENT.
+
+[[object-hall-endpoint-detail]]
+Hall endpoint object
+---------------------
+
+[source,json]
+----
+{
+    "id": 1,
+    "project": 1,
+    "url": "https://hall.com/api/1/services/generic/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
+----
