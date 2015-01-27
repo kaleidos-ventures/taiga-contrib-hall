@@ -56,10 +56,19 @@ HallWebhooksDirective = ($repo, $confirm, $loading) ->
 
             $loading.start(submitButton)
 
-            if $scope.hallhook.id
-                promise = $repo.save($scope.hallhook)
-            else
+            if not $scope.hallhook.id
                 promise = $repo.create("hall", $scope.hallhook)
+                promise.then (data) ->
+                    $scope.hallhook = data
+            else if $scope.hallhook.url
+                promise = $repo.save($scope.hallhook)
+                promise.then (data) ->
+                    $scope.hallhook = data
+            else
+                promise = $repo.remove($scope.hallhook)
+                promise.then (data) ->
+                    $scope.hallhook = {project: $scope.projectId}
+
             promise.then ->
                 $loading.finish(submitButton)
                 $confirm.notify("success")
