@@ -7,7 +7,7 @@ div(contrib-hall-webhooks, ng-controller="ContribHallAdminController as ctrl")
     form
         fieldset
             label(for="url") Hall webhook url
-            input(type="text", name="url", ng-model="hallhook.url", placeholder="Hall webhook url", id="url")
+            input(type="text", name="url", ng-model="hallhook.url", placeholder="Hall webhook url", id="url", data-type="url")
 
         button(type="submit", class="hidden")
         a.button.button-green.submit-button(href="", title="Save", ng-click="ctrl.updateOrCreateHook(hallhook)") Save

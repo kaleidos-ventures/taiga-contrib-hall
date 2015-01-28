@@ -128,7 +128,7 @@
 
   module.run([
     '$templateCache', function($templateCache) {
-      return $templateCache.put('contrib/hall', '<div contrib-hall-webhooks="contrib-hall-webhooks" ng-controller="ContribHallAdminController as ctrl"><header><h1 tg-main-title="tg-main-title"></h1></header><form><fieldset><label for="url">Hall webhook url</label><input type="text" name="url" ng-model="hallhook.url" placeholder="Hall webhook url" id="url"/></fieldset><button type="submit" class="hidden"></button><a href="" title="Save" ng-click="ctrl.updateOrCreateHook(hallhook)" class="button button-green submit-button">Save</a></form><a href="https://taiga.io/support/hall-integration/" target="_blank" class="help-button"><span class="icon icon-help"></span><span>Do you need help? Check out our support page!</span></a></div>');
+      return $templateCache.put('contrib/hall', '<div contrib-hall-webhooks="contrib-hall-webhooks" ng-controller="ContribHallAdminController as ctrl"><header><h1 tg-main-title="tg-main-title"></h1></header><form><fieldset><label for="url">Hall webhook url</label><input type="text" name="url" ng-model="hallhook.url" placeholder="Hall webhook url" id="url" data-type="url"/></fieldset><button type="submit" class="hidden"></button><a href="" title="Save" ng-click="ctrl.updateOrCreateHook(hallhook)" class="button button-green submit-button">Save</a></form><a href="https://taiga.io/support/hall-integration/" target="_blank" class="help-button"><span class="icon icon-help"></span><span>Do you need help? Check out our support page!</span></a></div>');
     }
   ]);
 
