@@ -18,9 +18,8 @@ import json
 
 from django.shortcuts import get_object_or_404
 
-from rest_framework.response import Response
-
 from taiga.base import filters
+from taiga.base import response
 from taiga.base.api import ModelCrudViewSet, ModelListViewSet
 from taiga.base.decorators import detail_route
 
@@ -44,4 +43,4 @@ class HallHookViewSet(ModelCrudViewSet):
 
         tasks.test_hallhook(hallhook.id, hallhook.url)
 
-        return Response()
+        return response.NoContent()
