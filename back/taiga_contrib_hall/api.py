@@ -16,11 +16,10 @@
 
 import json
 
-from django.shortcuts import get_object_or_404
-
 from taiga.base import filters
 from taiga.base import response
 from taiga.base.api import ModelCrudViewSet, ModelListViewSet
+from taiga.base.api.utils import get_object_or_404
 from taiga.base.decorators import detail_route
 
 from . import models
