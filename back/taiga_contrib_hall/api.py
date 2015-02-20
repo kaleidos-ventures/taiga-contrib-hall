@@ -40,6 +40,6 @@ class HallHookViewSet(ModelCrudViewSet):
         hallhook = self.get_object()
         self.check_permissions(request, 'test', hallhook)
 
-        tasks.test_hallhook(hallhook.id, hallhook.url)
+        tasks.test_hallhook(hallhook.url)
 
         return response.NoContent()

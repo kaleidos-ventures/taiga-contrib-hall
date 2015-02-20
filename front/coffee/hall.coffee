@@ -26,9 +26,10 @@ class HallAdmin
         "$tgRepo",
         "$appTitle",
         "$tgConfirm",
+        "$tgHttp",
     ]
 
-    constructor: (@rootScope, @scope, @repo, @appTitle, @confirm) ->
+    constructor: (@rootScope, @scope, @repo, @appTitle, @confirm, @http) ->
         @scope.sectionName = "Hall" #i18n
         @scope.sectionSlug = "hall" #i18n
 
@@ -43,6 +44,13 @@ class HallAdmin
 
             promise.then null, =>
                 @confirm.notify("error")
+
+    testHook: () ->
+        promise = @http.post(@repo.resolveUrlForModel(@scope.hallhook) + '/test')
+        promise.success (_data, _status) =>
+            @confirm.notify("success")
+        promise.error (data, status) =>
+            @confirm.notify("error")
 
 module.controller("ContribHallAdminController", HallAdmin)
 
