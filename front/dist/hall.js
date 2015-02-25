@@ -29,14 +29,15 @@
   };
 
   HallAdmin = (function() {
-    HallAdmin.$inject = ["$rootScope", "$scope", "$tgRepo", "$appTitle", "$tgConfirm"];
+    HallAdmin.$inject = ["$rootScope", "$scope", "$tgRepo", "$appTitle", "$tgConfirm", "$tgHttp"];
 
-    function HallAdmin(rootScope, scope, repo, appTitle, confirm) {
+    function HallAdmin(rootScope, scope, repo, appTitle, confirm, http) {
       this.rootScope = rootScope;
       this.scope = scope;
       this.repo = repo;
       this.appTitle = appTitle;
       this.confirm = confirm;
+      this.http = http;
       this.scope.sectionName = "Hall";
       this.scope.sectionSlug = "hall";
       this.scope.$on("project:loaded", (function(_this) {
@@ -60,6 +61,21 @@
         };
       })(this));
     }
+
+    HallAdmin.prototype.testHook = function() {
+      var promise;
+      promise = this.http.post(this.repo.resolveUrlForModel(this.scope.hallhook) + '/test');
+      promise.success((function(_this) {
+        return function(_data, _status) {
+          return _this.confirm.notify("success");
+        };
+      })(this));
+      return promise.error((function(_this) {
+        return function(data, status) {
+          return _this.confirm.notify("error");
+        };
+      })(this));
+    };
 
     return HallAdmin;
 
@@ -128,7 +144,7 @@
 
   module.run([
     '$templateCache', function($templateCache) {
-      return $templateCache.put('contrib/hall', '<div contrib-hall-webhooks="contrib-hall-webhooks" ng-controller="ContribHallAdminController as ctrl"><header><h1 tg-main-title="tg-main-title"></h1></header><form><fieldset><label for="url">Hall webhook url</label><input type="text" name="url" ng-model="hallhook.url" placeholder="Hall webhook url" id="url" data-type="url"/></fieldset><button type="submit" class="hidden"></button><a href="" title="Save" ng-click="ctrl.updateOrCreateHook(hallhook)" class="button button-green submit-button">Save</a></form><a href="https://taiga.io/support/hall-integration/" target="_blank" class="help-button"><span class="icon icon-help"></span><span>Do you need help? Check out our support page!</span></a></div>');
+      return $templateCache.put('contrib/hall', '<div contrib-hall-webhooks="contrib-hall-webhooks" ng-controller="ContribHallAdminController as ctrl"><header><h1 tg-main-title="tg-main-title"></h1></header><form><label for="url">Hall webhook url</label><div class="contrib-form-wrapper"><fieldset><input type="text" name="url" ng-model="hallhook.url" placeholder="Hall webhook url" id="url" data-type="url"/></fieldset><fieldset class="contrib-test"><a href="" title="Test" ng-show="hallhook.id" ng-click="ctrl.testHook()" class="button-gray"><span>Test</span></a></fieldset></div><button type="submit" class="hidden"></button><a href="" title="Save" ng-click="ctrl.updateOrCreateHook(hallhook)" class="button-green submit-button"><span>Save</span></a></form><a href="https://taiga.io/support/hall-integration/" target="_blank" class="help-button"><span class="icon icon-help"></span><span>Do you need help? Check out our support page!</span></a></div>');
     }
   ]);
 
