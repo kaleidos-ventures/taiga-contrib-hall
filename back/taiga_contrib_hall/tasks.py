@@ -39,7 +39,7 @@ def _send_request(url, data):
     requests.post(url, data=data)
 
 
-def _desc_or_content_to_message(template_field, field_name, values):
+def _markdown_field_to_message(template_field, field_name, values):
     context = Context({"field_name": field_name, "values": values })
     change_field_text = template_field.render(context)
 
@@ -65,24 +65,25 @@ def change_hallhook(url, obj, change):
         "message": change_text.strip(),
     }
 
-    # Get description and content
+    # Get markdown fields
     if change.diff:
         template_field = loader.get_template('taiga_contrib_hall/field-diff.jinja')
-        included_fields = ["description", "content"]
+        included_fields = ["description", "content", "blocked_note"]
 
         for field_name, values in change.diff.items():
             if field_name in included_fields:
-                message = _desc_or_content_to_message(template_field, field_name, values)
+                message = _markdown_field_to_message(template_field, field_name, values)
 
                 if message:
                     data['message'] += "\n" + message
 
+    # Get rest of fields
     if change.values_diff:
         template_field = loader.get_template('taiga_contrib_hall/field-diff.jinja')
         excluded_fields = ["description_diff", "description_html", "content_diff",
-                           "content_html", "backlog_order", "kanban_order",
-                           "taskboard_order", "us_order", "finish_date",
-                           "is_closed"]
+                           "content_html", "blocked_note_diff", "blocked_note_html",
+                           "backlog_order", "kanban_order", "taskboard_order", "us_order",
+                           "finish_date", "is_closed"]
 
         for field_name, values in change.values_diff.items():
             if field_name in excluded_fields:
