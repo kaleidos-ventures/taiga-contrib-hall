@@ -9,7 +9,7 @@ The Taiga plugin for hall integration.
 Installation
 ------------
 
-### Taiga Back
+#### Taiga Back
 
 In your Taiga back python virtualenv install the pip package `taiga-contrib-hall` with:
 
@@ -29,7 +29,7 @@ The run the migrations to generate the new need table:
   python manage.py migrate taiga_contrib_hall
 ```
 
-### Taiga Front
+#### Taiga Front
 
 Download in your `dist/js/` directory of Taiga front the `taiga-contrib-hall` compiled code:
 
@@ -45,3 +45,8 @@ Include in your dist/js/conf.json in the contribPlugins list the value `"/js/hal
     "contribPlugins": ["/js/hall.js"]
 ...
 ```
+
+How to use
+----------
+
+Follow the instructions on our support page [Taiga.io Support > Contrib Plugins > Hall integration](https://taiga.io/support/hall-integration/ "Taiga.io Support > Contrib Plugins > Hall integration")
