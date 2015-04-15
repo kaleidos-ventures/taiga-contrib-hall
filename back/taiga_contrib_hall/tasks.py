@@ -19,12 +19,11 @@ import requests
 from django.conf import settings
 from django.template import loader, Context
 
-
-from rest_framework.renderers import UnicodeJSONRenderer
-
 from taiga.base.utils.db import get_typename_for_model_instance
 from taiga.base.utils import json
 from taiga.celery import app
+
+from .compat import UnicodeJSONRenderer
 
 
 def _get_type(obj):
