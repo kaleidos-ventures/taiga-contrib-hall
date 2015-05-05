@@ -2,7 +2,11 @@
 |  $templateCache.put('contrib/hall', '''
 div(contrib-hall-webhooks, ng-controller="ContribHallAdminController as ctrl")
     header
-        h1(tg-main-title)
+        h1
+            span.project-name
+                | {{::project.name}}
+            span.green
+                | {{::sectionName}}
 
     form
         label(for="url") Hall webhook url

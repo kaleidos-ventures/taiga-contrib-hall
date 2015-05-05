@@ -23,7 +23,7 @@ from taiga.base.utils.db import get_typename_for_model_instance
 from taiga.base.utils import json
 from taiga.celery import app
 
-from .compat import UnicodeJSONRenderer
+from taiga.base.api.renderers import UnicodeJSONRenderer
 
 
 def _get_type(obj):
