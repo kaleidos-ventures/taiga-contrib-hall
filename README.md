@@ -35,7 +35,7 @@ Download in your `dist/js/` directory of Taiga front the `taiga-contrib-hall` co
 
 ```bash
   cd dist/js
-  wget "https://raw.githubusercontent.com/taigaio/taiga-contrib-hall/stable/front/dist/hall.js"
+  wget "https://raw.githubusercontent.com/taigaio/taiga-contrib-hall/$(pip show taiga-contrib-hall | awk '/^Version: /{print $2}')/front/dist/hall.js"
 ```
 
 Include in your dist/js/conf.json in the contribPlugins list the value `"/js/hall.js"`:
