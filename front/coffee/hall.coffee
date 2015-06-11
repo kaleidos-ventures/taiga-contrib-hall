@@ -24,14 +24,14 @@ class HallAdmin
         "$rootScope",
         "$scope",
         "$tgRepo",
-        "$appTitle",
+        "tgAppMetaService",
         "$tgConfirm",
         "$tgHttp",
     ]
 
-    constructor: (@rootScope, @scope, @repo, @appTitle, @confirm, @http) ->
-        @scope.sectionName = "Hall" #i18n
-        @scope.sectionSlug = "hall" #i18n
+    constructor: (@rootScope, @scope, @repo, @appMetaService, @confirm, @http) ->
+        @scope.sectionName = "Hall" # i18n
+        @scope.sectionSlug = "hall"
 
         @scope.$on "project:loaded", =>
             promise = @repo.queryMany("hall", {project: @scope.projectId})
@@ -40,7 +40,10 @@ class HallAdmin
                 @scope.hallhook = {project: @scope.projectId}
                 if hallhooks.length > 0
                     @scope.hallhook = hallhooks[0]
-                @appTitle.set("Hall - " + @scope.project.name)
+
+                title = "#{@scope.sectionName} - Plugins - #{@scope.project.name}" # i18n
+                description = @scope.project.description
+                @appMetaService.setAll(title, description)
 
             promise.then null, =>
                 @confirm.notify("error")

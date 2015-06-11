@@ -29,13 +29,13 @@
   };
 
   HallAdmin = (function() {
-    HallAdmin.$inject = ["$rootScope", "$scope", "$tgRepo", "$appTitle", "$tgConfirm", "$tgHttp"];
+    HallAdmin.$inject = ["$rootScope", "$scope", "$tgRepo", "tgAppMetaService", "$tgConfirm", "$tgHttp"];
 
-    function HallAdmin(rootScope, scope, repo, appTitle, confirm, http) {
+    function HallAdmin(rootScope, scope, repo, appMetaService, confirm, http) {
       this.rootScope = rootScope;
       this.scope = scope;
       this.repo = repo;
-      this.appTitle = appTitle;
+      this.appMetaService = appMetaService;
       this.confirm = confirm;
       this.http = http;
       this.scope.sectionName = "Hall";
@@ -47,13 +47,16 @@
             project: _this.scope.projectId
           });
           promise.then(function(hallhooks) {
+            var description, title;
             _this.scope.hallhook = {
               project: _this.scope.projectId
             };
             if (hallhooks.length > 0) {
               _this.scope.hallhook = hallhooks[0];
             }
-            return _this.appTitle.set("Hall - " + _this.scope.project.name);
+            title = _this.scope.sectionName + " - Plugins - " + _this.scope.project.name;
+            description = _this.scope.project.description;
+            return _this.appMetaService.setAll(title, description);
           });
           return promise.then(null, function() {
             return _this.confirm.notify("error");
