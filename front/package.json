@@ -1,6 +1,6 @@
 {
   "name": "taiga-contrib-hall",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "description": "Taiga contrib plugin for hall integration",
   "main": "index.js",
   "scripts": {
