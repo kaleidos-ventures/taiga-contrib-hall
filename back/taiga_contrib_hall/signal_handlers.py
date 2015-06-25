@@ -33,6 +33,9 @@ def _get_project_hallhooks(project):
 
 
 def on_new_history_entry(sender, instance, created, **kwargs):
+    if not created:
+        return None
+
     if instance.is_hidden:
         return None
 
