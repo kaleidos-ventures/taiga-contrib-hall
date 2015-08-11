@@ -65,7 +65,9 @@ HallWebhooksDirective = ($repo, $confirm, $loading) ->
 
             return if not form.validate()
 
-            $loading.start(submitButton)
+            currentLoading = $loading()
+                .target(submitButton)
+                .start()
 
             if not $scope.hallhook.id
                 promise = $repo.create("hall", $scope.hallhook)
@@ -81,11 +83,11 @@ HallWebhooksDirective = ($repo, $confirm, $loading) ->
                     $scope.hallhook = {project: $scope.projectId}
 
             promise.then ->
-                $loading.finish(submitButton)
+                currentLoading.finish()
                 $confirm.notify("success")
 
             promise.then null, (data) ->
-                $loading.finish(submitButton)
+                currentLoading.finish()
                 form.setErrors(data)
                 if data._error_message
                     $confirm.notify("error", data._error_message)
