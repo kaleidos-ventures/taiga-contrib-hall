@@ -1,3 +1,6 @@
+> **NOTE:** [Atlassian has acquired Hall.com](http://blogs.atlassian.com/2015/05/hall-joins-atlassian/) and they've closed the service, so this plugin doesn't work anymore.
+
+
 Taiga contrib hall
 ===================
 
@@ -6,7 +9,6 @@ Taiga contrib hall
 
 The Taiga plugin for hall integration.
 
-**NOTE: [Atlassian has acquired Hall.com](http://blogs.atlassian.com/2015/05/hall-joins-atlassian/) and they've closed the service, so this plugin doesn't work anymore.**
 
 Installation
 ------------
